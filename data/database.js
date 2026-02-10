@@ -1,0 +1,23 @@
+const mongodb = require("mongodb");
+
+const MongoClient = mongodb.MongoClient;
+
+let database;
+
+async function connectToDB() {
+  const client = await MongoClient.connect("mongodb://localhost:27017");
+  database = client.db("online-shop");
+}
+
+function getDB() {
+  if (!database) {
+    throw new Error("You must connect first!");
+  }
+
+  return database;
+}
+
+module.exports = {
+  connectToDB: connectToDB,
+  getDB: getDB,
+};
