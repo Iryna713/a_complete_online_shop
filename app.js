@@ -9,7 +9,10 @@ const createSessionConfig = require("./config/session");
 const db = require("./data/database");
 const addCsrfTokenMiddleware = require("./middlewares/csrf-token");
 const errorHandlerMiddleware = require("./middlewares/error-handler");
+const checkAuthStatusMiddleware = require("./middlewares/check-auth");
 const authRotes = require("./routes/auth.routes");
+const productsRotes = require("./routes/products.routes");
+const baseRotes = require("./routes/base.routes");
 
 const app = express();
 
@@ -25,8 +28,11 @@ app.use(expressSession(sessionConfig));
 app.use(csrf());
 
 app.use(addCsrfTokenMiddleware);
+app.use(checkAuthStatusMiddleware);
 
+app.use(baseRotes);
 app.use(authRotes); // with 'use' method we add middleware that will be triggered for every incoming request
+app.use(productsRotes);
 
 app.use(errorHandlerMiddleware);
 
