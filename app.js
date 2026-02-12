@@ -10,9 +10,10 @@ const db = require("./data/database");
 const addCsrfTokenMiddleware = require("./middlewares/csrf-token");
 const errorHandlerMiddleware = require("./middlewares/error-handler");
 const checkAuthStatusMiddleware = require("./middlewares/check-auth");
-const authRotes = require("./routes/auth.routes");
-const productsRotes = require("./routes/products.routes");
-const baseRotes = require("./routes/base.routes");
+const authRoutes = require("./routes/auth.routes");
+const productsRoutes = require("./routes/products.routes");
+const baseRoutes = require("./routes/base.routes");
+const adminRoutes = require("./routes/admin.routes");
 
 const app = express();
 
@@ -20,6 +21,7 @@ app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
 
 app.use(express.static("public"));
+app.use("/products/assets", express.static("product-data"));
 app.use(express.urlencoded({ extended: false })); // extract values from incoming request; 'extended: false' - to only support regular form submission
 
 const sessionConfig = createSessionConfig();
@@ -30,9 +32,10 @@ app.use(csrf());
 app.use(addCsrfTokenMiddleware);
 app.use(checkAuthStatusMiddleware);
 
-app.use(baseRotes);
-app.use(authRotes); // with 'use' method we add middleware that will be triggered for every incoming request
-app.use(productsRotes);
+app.use(baseRoutes);
+app.use(authRoutes); // with 'use' method we add middleware that will be triggered for every incoming request
+app.use(productsRoutes);
+app.use("/admin", adminRoutes);
 
 app.use(errorHandlerMiddleware);
 
