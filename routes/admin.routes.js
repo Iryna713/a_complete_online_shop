@@ -23,6 +23,10 @@ router.post(
   adminController.updateProduct,
 );
 
+router.get('/orders', adminController.getOrders);
+
+router.patch('/orders/:id', adminController.updateOrder);
+
 router.delete("/products/:id", adminController.deleteProduct);
 
 module.exports = router;
