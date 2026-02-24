@@ -1,6 +1,4 @@
-const updateOrderFormElements = document.querySelectorAll(
-  '.order-actions form'
-);
+const updateOrderFormElements = document.querySelectorAll('.order-actions form');
 
 async function updateOrder(event) {
   event.preventDefault();
