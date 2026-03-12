@@ -19,7 +19,7 @@ The application includes several security mechanisms to protect user data and pr
 
 
 
-This project uses the following Node.js packages:
+## This project uses the following Node.js packages:
 
 ### 1. Express
 
